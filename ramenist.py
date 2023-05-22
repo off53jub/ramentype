@@ -8,7 +8,8 @@ from tensorflow.keras.preprocessing import image
 import numpy as np
 
 
-classes = ["İ–û","–¡‘X","’SX–Ë","‰–","ÏŠ±‚µ","“Øœ","“Øœİ–û","‹›‰î“Øœ","Œ{”’“’","“ñ˜YŒn"]
+
+classes = ["0","1","2","3","4","5","6","7","8","9"]
 image_size = 28
 
 UPLOAD_FOLDER = "uploads"
@@ -44,7 +45,7 @@ def upload_file():
             #•ÏŠ·‚µ‚½ƒf[ƒ^‚ğƒ‚ƒfƒ‹‚É“n‚µ‚Ä—\‘ª‚·‚é
             result = model.predict(data)[0]
             predicted = result.argmax()
-            pred_answer = "‚±‚ê‚Í " + classes[predicted] + " ‚Å‚·"
+            pred_answer = "‚±‚ê‚Í " + classes[predicted] + " ƒ‰[ƒƒ“‚Å‚·"
 
             return render_template("index.html",answer=pred_answer)
 
@@ -52,4 +53,5 @@ def upload_file():
 
 
 if __name__ == "__main__":
-    app.run()
+    port = int(os.environ.get('PORT', 8080))
+    app.run(host ='0.0.0.0',port = port)
