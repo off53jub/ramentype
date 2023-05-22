@@ -23,7 +23,8 @@ def allowed_file(filename):
 
 model = load_model('./ramenmodel.h5')#学習済みモデルをロード
 
-upload_file.encode("cp437").decode("utf-8")
+# coding: shift_jis
+
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
