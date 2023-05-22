@@ -21,7 +21,7 @@ app = Flask(__name__)
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-model = load_model('./ramenmodel.h5', encoding="shift-jis")#学習済みモデルをロード
+model = load_model('./ramenmodel.h5', encoding="utf-8")#学習済みモデルをロード
 
 # coding: shift_jis
 
