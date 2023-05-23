@@ -1,4 +1,4 @@
-# coding: UTF-8
+
 
 import os
 from flask import Flask, request, redirect, render_template, flash
@@ -8,12 +8,12 @@ from tensorflow.keras.preprocessing import image
 
 import numpy as np
 
-# coding: shift-jis
 
-classes = ["0","1","2","3","4","5","6","7","8","9"]
-image_size = 28
 
-# coding: UTF-8
+classes = ["é†¤æ²¹","å‘³å™Œ","æ‹…ã€…éºº","å¡©","ç…®å¹²ã—","è±šéª¨","è±šéª¨é†¤æ²¹","é­šä»‹è±šéª¨","é¶ç™½æ¹¯","äºŒéƒç³»"]
+image_size = 32
+
+
 UPLOAD_FOLDER = "uploads"
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
@@ -22,32 +22,32 @@ app = Flask(__name__)
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-model = load_model('./ramenmodel.h5',compile=False)#ŠwKÏ‚İƒ‚ƒfƒ‹‚ğƒ[ƒh
-# coding: shift-jis
+model = load_model('./ramenmodel.h5',compile=False)
+
 
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         if 'file' not in request.files:
-            flash('ƒtƒ@ƒCƒ‹')
+            flash('ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å…¥ã‚Œã¦ãã ã•ã„')
             return redirect(request.url)
         file = request.files['file']
         if file.filename == '':
-            flash('no file')
+            flash('ãƒ•ã‚¡ã‚¤ãƒ«ã‚’å…¥ã‚Œã¦ãã ã•ã„')
             return redirect(request.url)
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(UPLOAD_FOLDER, filename))
             filepath = os.path.join(UPLOAD_FOLDER, filename)
 
-            #ó‚¯æ‚Á‚½‰æ‘œ‚ğ“Ç‚İ‚İAnpŒ`®‚É•ÏŠ·
-            img = image.load_img(filepath, grayscale=True, target_size=(image_size,image_size))
+            
+            img = image.load_img(filepath, target_size=(image_size,image_size))
             img = image.img_to_array(img)
             data = np.array([img])
-            #•ÏŠ·‚µ‚½ƒf[ƒ^‚ğƒ‚ƒfƒ‹‚É“n‚µ‚Ä—\‘ª‚·‚é
+          
             result = model.predict(data)[0]
             predicted = result.argmax()
-            pred_answer = "This is " + classes[predicted]
+            pred_answer = "ã“ã‚Œã¯" + classes[predicted] +'ãƒ©ãƒ¼ãƒ¡ãƒ³ã§ã™'
 
             return render_template("index.html",answer=pred_answer)
 
