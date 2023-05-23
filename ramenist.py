@@ -1,4 +1,4 @@
-# coding: UTF-8
+
 
 import os
 from flask import Flask, request, redirect, render_template, flash
@@ -28,7 +28,7 @@ model = load_model('./ramenmodel.h5',compile=False)#学習済みモデルをロード
 def upload_file():
     if request.method == 'POST':
         if 'file' not in request.files:
-            flash('no file')
+            flash('ファイル')
             return redirect(request.url)
         file = request.files['file']
         if file.filename == '':
